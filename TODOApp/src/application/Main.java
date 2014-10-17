@@ -12,6 +12,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
+			
 			// Person person = new Person();
 			// person.setFirstname("Artyom");
 			// person.setLastname("asd");
