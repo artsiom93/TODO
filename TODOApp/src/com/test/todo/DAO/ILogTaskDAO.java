@@ -7,8 +7,7 @@ import com.test.todo.domain.Task;
 
 public interface ILogTaskDAO {
 	public void addLogTask(LogTask logTask) throws SQLException;
-	public void updateLogTask(Integer id,LogTask logTask) throws SQLException;
-	public LogTask getLogTaskById(Integer id) throws SQLException;
+	public void updateLogTask(LogTask logTask) throws SQLException;
 	public Collection<LogTask> getAllLogTasksByTask(Task task) throws SQLException;
 	public void deleteLogTask(LogTask logTask) throws SQLException;
 }

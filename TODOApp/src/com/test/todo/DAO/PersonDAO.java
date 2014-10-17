@@ -1,69 +1,52 @@
 package com.test.todo.DAO;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 import javax.swing.JOptionPane;
-import org.hibernate.Session;
 import com.test.todo.domain.Person;
-import com.test.todo.util.HibernateUtil;
 
 public class PersonDAO implements IPersonDAO {
+	public EntityManager em = Persistence.createEntityManagerFactory("todo")
+			.createEntityManager();
 
 	@Override
 	public void addPerson(Person person) throws SQLException {
 		// TODO Auto-generated method stub
-		Session session = null;
 		try {
-			session = HibernateUtil.getSessionFactory().openSession();
-			session.beginTransaction();
-			session.save(person);
-			session.getTransaction().commit();
+			em.getTransaction().begin();
+			em.persist(person);
+			em.getTransaction().commit();
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(),
 					"Ошибка при вставке", JOptionPane.OK_OPTION);
-		} finally {
-			if (session != null && session.isOpen()) {
-				session.close();
-			}
 		}
 	}
 
 	@Override
-	public void updatePerson(Integer id, Person person) throws SQLException {
+	public void updatePerson(Person person) throws SQLException {
 		// TODO Auto-generated method stub
-		Session session = null;
 		try {
-			session = HibernateUtil.getSessionFactory().openSession();
-			session.beginTransaction();
-			session.update(person);
-			session.getTransaction().commit();
+			em.getTransaction().begin();
+			em.merge(person);
+			em.getTransaction().commit();
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(),
 					"Ошибка при обновлении", JOptionPane.OK_OPTION);
-		} finally {
-			if (session != null && session.isOpen()) {
-				session.close();
-			}
 		}
 	}
 
 	@Override
 	public Person getPersonById(Integer id) throws SQLException {
 		// TODO Auto-generated method stub
-		Session session = null;
 		Person person = null;
 		try {
-			session = HibernateUtil.getSessionFactory().openSession();
-			person = (Person) session.load(Person.class, id);
+			person = em.find(Person.class, id);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(),
 					"Ошибка 'findById'", JOptionPane.OK_OPTION);
-		} finally {
-			if (session != null && session.isOpen()) {
-				session.close();
-			}
 		}
 		return person;
 	}
@@ -71,38 +54,26 @@ public class PersonDAO implements IPersonDAO {
 	@Override
 	public Collection<Person> getAllPersons() throws SQLException {
 		// TODO Auto-generated method stub
-		Session session = null;
-		List<Person> persons = new ArrayList<Person>();
+		TypedQuery<Person> namedQuery = null;
 		try {
-			session = HibernateUtil.getSessionFactory().openSession();
-			persons = session.createCriteria(Person.class).list();
+			namedQuery = em.createNamedQuery("Person.getAll", Person.class);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(),
 					"Ошибка 'getAll'", JOptionPane.OK_OPTION);
-		} finally {
-			if (session != null && session.isOpen()) {
-				session.close();
-			}
 		}
-		return persons;
+		return namedQuery.getResultList();
 	}
 
 	@Override
 	public void deletePerson(Person person) throws SQLException {
 		// TODO Auto-generated method stub
-		Session session = null;
 		try {
-			session = HibernateUtil.getSessionFactory().openSession();
-			session.beginTransaction();
-			session.delete(person);
-			session.getTransaction().commit();
+			em.getTransaction().begin();
+			em.remove(person);
+			em.getTransaction().commit();
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(),
 					"Ошибка при удалении", JOptionPane.OK_OPTION);
-		} finally {
-			if (session != null && session.isOpen()) {
-				session.close();
-			}
 		}
 	}
 

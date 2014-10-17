@@ -13,12 +13,12 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			
-			// Person person = new Person();
-			// person.setFirstname("Artyom");
-			// person.setLastname("asd");
-			// person.setLogin("asddd");
-			// person.setPassword("1231");
-			// Factory.getInstance().getPersonDAO().addPerson(person);
+			/*Person person = new Person();
+			person.setFirstname("Artdyom");
+			person.setLastname("a9sdd");
+			person.setLogin("asddd");
+			person.setPassword("1231");
+			Factory.getInstance().getPersonDAO().addPerson(person);*/
 			BorderPane root = new BorderPane();
 			Scene scene = new Scene(root, 400, 400);
 			scene.getStylesheets().add(
