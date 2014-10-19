@@ -2,10 +2,13 @@ package com.test.todo.DAO;
 
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import javax.swing.JOptionPane;
+
 import com.test.todo.domain.Person;
 
 public class PersonDAO implements IPersonDAO {
@@ -54,14 +57,15 @@ public class PersonDAO implements IPersonDAO {
 	@Override
 	public Collection<Person> getAllPersons() throws SQLException {
 		// TODO Auto-generated method stub
-		TypedQuery<Person> namedQuery = null;
+		List<Person> persons = null;
 		try {
-			namedQuery = em.createNamedQuery("Person.getAll", Person.class);
+			persons = em.createQuery("SELECT r FROM Person r",Person.class)
+		            .getResultList();
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(),
 					"Ошибка 'getAll'", JOptionPane.OK_OPTION);
 		}
-		return namedQuery.getResultList();
+		return persons;
 	}
 
 	@Override
