@@ -85,7 +85,7 @@ public class PersonEditDialogController {
 		if (errorMessage.length() == 0) {
 			return true;
 		} else {
-			JOptionPane.showMessageDialog(null, errorMessage, "Ошибка ввода",
+			JOptionPane.showMessageDialog(null, errorMessage, "Error. Bad inputs",
 					JOptionPane.OK_OPTION);
 			return false;
 		}

@@ -1,12 +1,15 @@
 package com.test.todo.DAO;
 
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 public class Factory {
 
 	private static IPersonDAO personDAO = null;
 	private static ITaskDAO taskDAO = null;
 	private static ILogTaskDAO logTaskDAO = null;
 	private static Factory instance = null;
-
+	public static EntityManagerFactory ef = Persistence.createEntityManagerFactory("todo");
 	public static synchronized Factory getInstance() {
 		if (instance == null) {
 			instance = new Factory();

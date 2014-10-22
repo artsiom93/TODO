@@ -1,53 +1,63 @@
 package com.test.todo.DAO;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import javax.swing.JOptionPane;
+import com.test.todo.domain.Person;
 import com.test.todo.domain.Task;
 
 public class TaskDAO implements ITaskDAO {
-	public EntityManager em = Persistence.createEntityManagerFactory("todo")
-			.createEntityManager();
 
 	@Override
 	public void addTask(Task task) throws SQLException {
 		// TODO Auto-generated method stub
 		try {
+			EntityManager em = Factory.ef.createEntityManager();
 			em.getTransaction().begin();
 			em.persist(task);
 			em.getTransaction().commit();
+			em.close();
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(),
-					"Ошибка при вставке", JOptionPane.OK_OPTION);
+					"Error. addTask", JOptionPane.OK_OPTION);
 		}
-
 	}
 
 	@Override
 	public void updateTask(Task task) throws SQLException {
 		// TODO Auto-generated method stub
 		try {
+			EntityManager em = Factory.ef.createEntityManager();
 			em.getTransaction().begin();
 			em.merge(task);
 			em.getTransaction().commit();
+			em.close();
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(),
-					"Ошибка при обновлении", JOptionPane.OK_OPTION);
+					"Error. updateTask", JOptionPane.OK_OPTION);
 		}
 	}
 
 	@Override
-	public Task getTaskById(Integer id) throws SQLException {
+	public Collection<Task> getTaskByIdPerson(Person person)
+			throws SQLException {
 		// TODO Auto-generated method stub
-		Task task = null;
+		List<Task> task = new ArrayList<Task>();
 		try {
-			task = em.find(Task.class, id);
+			EntityManager em = Factory.ef.createEntityManager();
+			task = (ArrayList<Task>) em
+					.createQuery(
+							"SELECT r FROM Task r WHERE person_ID = :chrId",
+							Task.class).setParameter("chrId", person.getId())
+					.getResultList();
+			em.close();
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(),
-					"Ошибка 'findById'", JOptionPane.OK_OPTION);
+					"Error. getTaskByIdPerson", JOptionPane.OK_OPTION);
 		}
 		return task;
 	}
@@ -57,10 +67,12 @@ public class TaskDAO implements ITaskDAO {
 		// TODO Auto-generated method stub
 		TypedQuery<Task> namedQuery = null;
 		try {
+			EntityManager em = Factory.ef.createEntityManager();
 			namedQuery = em.createNamedQuery("Task.getAll", Task.class);
+			em.close();
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(),
-					"Ошибка 'getAll'", JOptionPane.OK_OPTION);
+					"Error. getAllTasks", JOptionPane.OK_OPTION);
 		}
 		return namedQuery.getResultList();
 	}
@@ -69,12 +81,15 @@ public class TaskDAO implements ITaskDAO {
 	public void deleteTask(Task task) throws SQLException {
 		// TODO Auto-generated method stub
 		try {
+			EntityManager em = Factory.ef.createEntityManager();
+			Task attached = em.find(Task.class, task.getId());
 			em.getTransaction().begin();
-			em.remove(task);
+			em.remove(attached);
 			em.getTransaction().commit();
+			em.close();
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(),
-					"Ошибка при удалении", JOptionPane.OK_OPTION);
+					"Error. deleteTask", JOptionPane.OK_OPTION);
 		}
 	}
 

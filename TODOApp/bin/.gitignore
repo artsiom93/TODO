@@ -1,5 +1,5 @@
-/hibernate.cfg.xml
-/META-INF/
 /com/
-/application/
+/META-INF/
 /controller/
+/view/
+/application/

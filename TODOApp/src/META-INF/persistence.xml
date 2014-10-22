@@ -2,7 +2,7 @@
 <persistence version="1.0"
 	xmlns="http://java.sun.com/xml/ns/persistence">
 	<persistence-unit name="todo" transaction-type="RESOURCE_LOCAL">
-		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		<class>com.test.todo.domain.Person</class>
 		<class>com.test.todo.domain.Task</class>
 		<class>com.test.todo.domain.LogTask</class>
@@ -12,7 +12,10 @@
 			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
 			<property name="hibernate.connection.username" value="root" />
 			<property name="hibernate.connection.password" value="1234" />	
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" />
 			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="javax.persistence.validation.mode" value="none" />
 		</properties>
 	</persistence-unit>
 </persistence>

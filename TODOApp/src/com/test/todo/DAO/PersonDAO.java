@@ -3,28 +3,24 @@ package com.test.todo.DAO;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
-
 import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
-import javax.persistence.TypedQuery;
 import javax.swing.JOptionPane;
-
 import com.test.todo.domain.Person;
 
 public class PersonDAO implements IPersonDAO {
-	public EntityManager em = Persistence.createEntityManagerFactory("todo")
-			.createEntityManager();
 
 	@Override
 	public void addPerson(Person person) throws SQLException {
 		// TODO Auto-generated method stub
 		try {
+			EntityManager em = Factory.ef.createEntityManager();
 			em.getTransaction().begin();
 			em.persist(person);
 			em.getTransaction().commit();
+			em.close();
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(),
-					"Ошибка при вставке", JOptionPane.OK_OPTION);
+					"Error. addPerson", JOptionPane.OK_OPTION);
 		}
 	}
 
@@ -32,12 +28,14 @@ public class PersonDAO implements IPersonDAO {
 	public void updatePerson(Person person) throws SQLException {
 		// TODO Auto-generated method stub
 		try {
+			EntityManager em = Factory.ef.createEntityManager();
 			em.getTransaction().begin();
 			em.merge(person);
 			em.getTransaction().commit();
+			em.close();
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(),
-					"Ошибка при обновлении", JOptionPane.OK_OPTION);
+					"Error. updatePerson", JOptionPane.OK_OPTION);
 		}
 	}
 
@@ -46,10 +44,12 @@ public class PersonDAO implements IPersonDAO {
 		// TODO Auto-generated method stub
 		Person person = null;
 		try {
+			EntityManager em = Factory.ef.createEntityManager();
 			person = em.find(Person.class, id);
+			em.close();
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(),
-					"Ошибка 'findById'", JOptionPane.OK_OPTION);
+					"Error. getPersonById", JOptionPane.OK_OPTION);
 		}
 		return person;
 	}
@@ -59,12 +59,14 @@ public class PersonDAO implements IPersonDAO {
 		// TODO Auto-generated method stub
 		List<Person> persons = null;
 		try {
-			persons = em.createQuery("SELECT r FROM Person r",Person.class)
-							            .getResultList();
-					 		} catch (Exception e) {
-					 			JOptionPane.showMessageDialog(null, e.getMessage(),
-					 					"Ошибка 'getAll'", JOptionPane.OK_OPTION);
-					 		}
+			EntityManager em = Factory.ef.createEntityManager();
+			persons = em.createQuery("FROM Person r", Person.class)
+					.getResultList();
+			em.close();
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage(),
+					"Ошибка 'getAll'", JOptionPane.OK_OPTION);
+		}
 		return persons;
 	}
 
@@ -72,12 +74,15 @@ public class PersonDAO implements IPersonDAO {
 	public void deletePerson(Person person) throws SQLException {
 		// TODO Auto-generated method stub
 		try {
+			EntityManager em = Factory.ef.createEntityManager();
+			Person attached = em.find(Person.class, person.getId());
 			em.getTransaction().begin();
-			em.remove(person);
+			em.remove(attached);
 			em.getTransaction().commit();
+			em.close();
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(),
-					"Ошибка при удалении", JOptionPane.OK_OPTION);
+					"Error. deletePerson", JOptionPane.OK_OPTION);
 		}
 	}
 

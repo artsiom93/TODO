@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="97.0" prefWidth="268.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="controller.TaskEditDialogController">
+   <children>
+      <VBox prefHeight="70.0" prefWidth="125.0" spacing="5.0">
+         <children>
+            <Label text="Name task">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Label>
+            <Label text="State">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+         </children>
+         <padding>
+            <Insets left="10.0" top="10.0" />
+         </padding>
+      </VBox>
+      <VBox layoutX="143.0" prefHeight="70.0" prefWidth="125.0" spacing="5.0">
+         <children>
+            <TextField fx:id="nameField" />
+            <CheckBox fx:id="stateCheckBox" mnemonicParsing="false" text="Done?" />
+         </children>
+         <padding>
+            <Insets right="5.0" top="10.0" />
+         </padding>
+      </VBox>
+      <HBox layoutY="70.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="268.0" spacing="5.0">
+         <children>
+            <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#handleCancel" text="Cancel" />
+            <Button fx:id="btnOk" mnemonicParsing="false" onAction="#handleOk" text="Ok" />
+         </children>
+         <opaqueInsets>
+            <Insets left="30.0" />
+         </opaqueInsets>
+         <padding>
+            <Insets left="5.0" right="5.0" />
+         </padding>
+      </HBox>
+   </children>
+</AnchorPane>

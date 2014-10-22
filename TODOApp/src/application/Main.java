@@ -4,10 +4,14 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import com.test.todo.DAO.Factory;
+import com.test.todo.domain.LogTask;
 import com.test.todo.domain.Person;
+import com.test.todo.domain.Task;
 
+import controller.LogTaskAddDialogController;
 import controller.PersonEditDialogController;
 import controller.PersonOverviewController;
+import controller.TaskEditDialogController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -36,12 +40,10 @@ public class Main extends Application {
 
 	public void initMainLayout() {
 		try {
-			// Load root layout from fxml file.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("/view/MainView.fxml"));
 			rootLayout = (BorderPane) loader.load();
-
-			// Show the scene containing the root layout.
+			
 			Scene scene = new Scene(rootLayout);
 			primaryStage.setScene(scene);
 			primaryStage.show();
@@ -71,12 +73,10 @@ public class Main extends Application {
 
 	public boolean showPersonEditDialog(Person person) {
 		try {
-			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getResource("/view/NewPerson.fxml"));
 			AnchorPane page = (AnchorPane) loader.load();
 
-			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("Edit Person");
 			dialogStage.initModality(Modality.WINDOW_MODAL);
@@ -84,12 +84,62 @@ public class Main extends Application {
 			Scene scene = new Scene(page);
 			dialogStage.setScene(scene);
 
-			// Set the person into the controller.
 			PersonEditDialogController controller = loader.getController();
 			controller.setDialogStage(dialogStage);
 			controller.setPerson(person);
 
-			// Show the dialog and wait until the user closes it
+			dialogStage.showAndWait();
+
+			return controller.isOkClicked();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	public boolean showTaskEditDialog(Task task) {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("/view/NewTask.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Edit Task");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+
+			TaskEditDialogController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			controller.setTask(task);
+
+			dialogStage.showAndWait();
+
+			return controller.isOkClicked();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	public boolean showLogTaskAddDialog(LogTask logTask) {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("/view/NewLogTask.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Add LogTask");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+
+			LogTaskAddDialogController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			controller.setTask(logTask);
+
 			dialogStage.showAndWait();
 
 			return controller.isOkClicked();
@@ -117,4 +167,10 @@ public class Main extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
+	@Override
+	public void stop() throws Exception {
+	// TODO Auto-generated method stub
+	Factory.ef.close();
+	super.stop();
+}
 }

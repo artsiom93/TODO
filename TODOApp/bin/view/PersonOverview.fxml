@@ -1,37 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PersonOverviewController">
+<AnchorPane prefHeight="400.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PersonOverviewController">
    <children>
-      <TabPane prefHeight="400.0" prefWidth="400.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane layoutY="14.0" prefHeight="400.0" prefWidth="850.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="All Persons">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="272.0" prefWidth="321.0">
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="372.0" prefWidth="865.0">
                      <children>
-                        <Button fx:id="btnAddNewPerson" layoutX="14.0" layoutY="334.0" mnemonicParsing="false" onAction="#handleNewPerson" text="Add new person" />
-                        <TableView fx:id="personTable" layoutY="6.0" prefHeight="309.0" prefWidth="400.0">
+                        <TableView fx:id="personTable" layoutX="8.0" layoutY="6.0" prefHeight="309.0" prefWidth="392.0">
                           <columns>
-                            <TableColumn fx:id="id" prefWidth="75.0" text="Id" />
-                            <TableColumn fx:id="firstName" prefWidth="75.0" text="First name" />
-                            <TableColumn fx:id="lastName" prefWidth="75.0" text="Last name" />
-                            <TableColumn fx:id="login" prefWidth="75.0" text="Login" />
-                            <TableColumn fx:id="password" prefWidth="75.0" text="Password" />
+                            <TableColumn fx:id="id" prefWidth="30.0" text="Id" />
+                            <TableColumn fx:id="firstName" prefWidth="90.0" text="First name" />
+                            <TableColumn fx:id="lastName" prefWidth="90.0" text="Last name" />
+                            <TableColumn fx:id="login" prefWidth="90.0" text="Login" />
+                            <TableColumn fx:id="password" prefWidth="90.0" text="Password" />
                           </columns>
                         </TableView>
-                        <Button fx:id="btnDeletePerson" layoutX="225.0" layoutY="334.0" mnemonicParsing="false" onAction="#handleDeletePerson" prefHeight="24.0" prefWidth="96.0" text="Delete person" />
-                        <Button fx:id="btnEditPerson" layoutX="118.0" layoutY="334.0" mnemonicParsing="false" onAction="#handleEditPerson" prefHeight="24.0" prefWidth="82.0" text="Edit person" />
+                        <HBox layoutX="14.0" layoutY="315.0" prefHeight="45.0" prefWidth="321.0" spacing="10.0">
+                           <children>
+                              <Button fx:id="btnAddNewPerson" mnemonicParsing="false" onAction="#handleNewPerson" text="Add new person" />
+                              <Button fx:id="btnEditPerson" mnemonicParsing="false" onAction="#handleEditPerson" prefHeight="24.0" prefWidth="82.0" text="Edit person" />
+                              <Button fx:id="btnDeletePerson" mnemonicParsing="false" onAction="#handleDeletePerson" prefHeight="24.0" prefWidth="96.0" text="Delete person" />
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" top="10.0" />
+                           </padding>
+                        </HBox>
+                        <HBox layoutX="400.0" layoutY="265.0" prefHeight="39.0" prefWidth="291.0" spacing="3.0">
+                           <children>
+                              <Button fx:id="btnAddTask" mnemonicParsing="false" onAction="#handleAddTask" prefHeight="24.0" prefWidth="66.0" text="Add Task" />
+                              <Button fx:id="btnEditTask" mnemonicParsing="false" onAction="#handleEditTask" prefHeight="24.0" prefWidth="63.0" text="Edit Task" />
+                              <Button fx:id="btnDeleteTask" mnemonicParsing="false" onAction="#handleDeleteTask" prefHeight="24.0" prefWidth="75.0" text="Delete Task" />
+                              <Button fx:id="btnAddLog" mnemonicParsing="false" onAction="#handleAddLog" prefHeight="24.0" prefWidth="65.0" text="Add Log" />
+                           </children>
+                           <padding>
+                              <Insets bottom="5.0" top="10.0" />
+                           </padding>
+                        </HBox>
+                        <TableView fx:id="taskTable" layoutX="410.0" layoutY="6.0" prefHeight="261.0" prefWidth="179.0">
+                          <columns>
+                            <TableColumn fx:id="idTask" prefWidth="30.0" text="Id" />
+                            <TableColumn fx:id="nameTask" prefWidth="75.0" text="Name task" />
+                              <TableColumn fx:id="stateTask" prefWidth="75.0" text="State" />
+                          </columns>
+                        </TableView>
+                        <TextArea fx:id="logsTextArea" editable="false" layoutX="598.0" layoutY="26.0" prefHeight="239.0" prefWidth="244.0" />
                      </children>
                   </AnchorPane>
-            </content>
-          </Tab>
-          <Tab text="All Tasks">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
             </content>
           </Tab>
         </tabs>

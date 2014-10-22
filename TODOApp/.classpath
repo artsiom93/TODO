@@ -13,7 +13,6 @@
 	<classpathentry kind="lib" path="G:/eclipse/external-libs/hibernate/lib/required/jboss-logging-3.1.3.GA.jar"/>
 	<classpathentry kind="lib" path="G:/eclipse/external-libs/hibernate/lib/required/jboss-logging-annotations-1.2.0.Beta1.jar"/>
 	<classpathentry kind="lib" path="G:/eclipse/external-libs/hibernate/lib/required/jboss-transaction-api_1.2_spec-1.0.0.Final.jar"/>
-	<classpathentry kind="lib" path="G:/eclipse/external-libs/mysql-connector-java-5.1.13-bin.jar"/>
 	<classpathentry kind="lib" path="G:/eclipse/external-libs/hibernate/lib/jpa/hibernate-entitymanager-4.3.6.Final.jar"/>
 	<classpathentry kind="lib" path="G:/eclipse/external-libs/hibernate/lib/envers/hibernate-envers-4.3.6.Final.jar"/>
 	<classpathentry kind="lib" path="G:/eclipse/external-libs/hibernate/lib/jpa-metamodel-generator/hibernate-jpamodelgen-4.3.6.Final.jar"/>
@@ -37,5 +36,6 @@
 	<classpathentry kind="lib" path="G:/eclipse/external-libs/hibernate/lib/osgi/hibernate-osgi-4.3.6.Final.jar"/>
 	<classpathentry kind="lib" path="G:/eclipse/external-libs/hibernate/lib/osgi/org.osgi.compendium-4.3.1.jar"/>
 	<classpathentry kind="lib" path="G:/eclipse/external-libs/hibernate/lib/osgi/org.osgi.core-4.3.1.jar"/>
+	<classpathentry kind="lib" path="G:/eclipse/external-libs/mysql-connector-java8-5.1.23.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

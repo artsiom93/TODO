@@ -1,7 +1,7 @@
 package com.test.todo.domain;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,8 +30,8 @@ public class Person {
 	@Column(name = "PASSWORD")
 	private String password;
 
-	@OneToMany(mappedBy = "person")
-	private Set<Task> tasks = new HashSet<Task>();
+	@OneToMany(mappedBy = "person", orphanRemoval = true)
+	private List<Task> tasks = new ArrayList<Task>();
 
 	public Person() {
 	}
@@ -76,11 +76,11 @@ public class Person {
 		this.password = password;
 	}
 
-	public Set<Task> getTasks() {
+	public List<Task> getTasks() {
 		return tasks;
 	}
 
-	public void setTasks(Set<Task> tasks) {
+	public void setTasks(List<Task> tasks) {
 		this.tasks = tasks;
 	};
 
